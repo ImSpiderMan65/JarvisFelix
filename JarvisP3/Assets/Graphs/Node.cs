@@ -11,5 +11,21 @@ public class Node
    public float yPos;
    public float zPos;
 
+    public float f, g, h;
+    public Node cameFrom;
+
+    public Node(GameObject i)
+    {
+        id = i;
+        xPos = i.transform.position.x;
+        yPos = i.transform.position.y;
+        zPos = i.transform.position.z;
+    }
+
+    public GameObject getId()
+    {
+        return id;
+    }
+
 
 }
