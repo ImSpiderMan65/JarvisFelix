@@ -38,4 +38,62 @@ public class Graph
         }
         return null;
     }
+
+    public bool AStar(GameObject startId, GameObject endId)
+    {
+
+        Node start = FindNode(startId);
+        Node end = FindNode(endId);
+
+        if (start == null || end == null)
+        {
+            return false;
+        }
+
+        List<Node> open = new List<Node>();
+        List<Node> close = new List<Node>();
+        float tentative_g_score = 0;
+        bool tentative_is_better;
+
+        start.g = 0;
+        start.h = distance(start, end);
+        start.f = start.h;
+
+        open.Add(start);
+        while(open.Count > 0)
+        {
+            int i = lowestF(open);
+            Node thisNode = open[i];
+            if (thisNode.getId() == endId)
+            {
+                //ReconstructPath(start,end);
+                return true;
+            }
+        }
+    }
+
+    float distance(Node a, Node b)
+    {
+        return (Vector3.SqrMagnitude(a.getId().transform.position - b.getId().transform.position));
+    }
+
+    int lowestF(List<Node> l)
+    {
+        float lowestf = 0;
+        int count = 0;
+        int iteratorCount = 0;
+
+        lowestf = l[0].f;
+
+        for(int i = 1; i < l.Count; i++)
+        {
+            if (l[i].f <= lowestf)
+            {
+                lowestf = l[i].f;
+                iteratorCount = count;
+            }
+            count++;
+        }
+        return iteratorCount;
+    }
 }
