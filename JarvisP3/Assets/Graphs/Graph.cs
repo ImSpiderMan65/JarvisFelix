@@ -110,6 +110,15 @@ public class Graph
     {
         pathList.Clear();
         pathList.Add(endId);
+
+        var p = endId.cameFrom;
+        while (p != startId && p != null)
+        {
+            pathList.Insert(0, p);
+            p = p.cameFrom;
+        }
+        pathList.Insert(0, startId);
+
     }
 
     float distance(Node a, Node b)
